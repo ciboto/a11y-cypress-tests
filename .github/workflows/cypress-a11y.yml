@@ -25,17 +25,17 @@ jobs:
       - name: Run Cypress tests
         run: npm run test || echo "Tests failed but continuing"
 
-      - name: Verificar se há JSONs para mesclar
+      - name: Verificar se há JSONs válidos para mesclar
         id: check-reports
         run: |
-          count=$(ls cypress/reports/json/*.json 2>/dev/null | wc -l)
-          echo "Found $count report(s)"
-          if [ "$count" -gt 0 ]; then
+          valid=$(grep -l '"stats"' cypress/reports/json/*.json 2>/dev/null | wc -l)
+          echo "Found $valid valid report(s)"
+          if [ "$valid" -gt 0 ]; then
             echo "has_reports=true" >> $GITHUB_OUTPUT
           else
             echo "has_reports=false" >> $GITHUB_OUTPUT
           fi
-
+          
       - name: Merge reports
         if: steps.check-reports.outputs.has_reports == 'true'
         run: npm run report:merge
