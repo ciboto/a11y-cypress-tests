@@ -4,9 +4,7 @@
   "description": "Testes de acessibilidade com Cypress e cypress-axe",
   "scripts": {
     "test": "cypress run",
-    "report:merge": "node scripts/merge-reports.js",
-    "report:generate": "marge cypress/reports/json/mochawesome.json --reportDir cypress/reports/html --reportFilename report-test-accessibility-index",
-    "report": "npm run report:merge && npm run report:generate"
+    "report": "node scripts/merge-reports.js"
   },
   "devDependencies": {
     "axe-core": "^4.10.3",
