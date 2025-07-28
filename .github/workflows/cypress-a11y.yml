@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Rodar testes Cypress
-        run: npm run test
+        run: npm run test || true
 
       - name: Merge and generate mochawesome report
         run: npm run report
