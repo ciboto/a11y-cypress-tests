@@ -4,7 +4,7 @@
   "description": "Testes de acessibilidade com Cypress e cypress-axe",
   "scripts": {
     "test": "cypress run",
-    "report:merge": "test -f cypress/reports/json/*.json && mochawesome-merge cypress/reports/json/*.json > cypress/reports/json/mochawesome.json || echo 'Nenhum arquivo JSON para mesclar'",
+    "report:merge": "count=$(ls cypress/reports/json/*.json 2>/dev/null | wc -l) && if [ $count -gt 0 ]; then mochawesome-merge cypress/reports/json/*.json > cypress/reports/json/mochawesome.json; else echo 'Nenhum arquivo JSON válido para mesclar'; fi",
     "report:generate": "marge cypress/reports/json/mochawesome.json --reportDir cypress/reports/html --reportFilename report-test-accessibility-index",
     "report": "npm run report:merge && npm run report:generate"
   },
