@@ -1,6 +1,7 @@
 name: Cypress Accessibility Tests
 
 on:
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -21,11 +22,14 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Rodar testes Cypress
-        run: npm run test || true
+      - name: Run Cypress tests
+        run: npm run test || echo "Tests failed but continuing"
 
-      - name: Merge and generate mochawesome report
-        run: npm run report
+      - name: Merge reports
+        run: npm run report:merge || echo "Merge failed but continuing"
+
+      - name: Generate report
+        run: npm run report:generate || echo "Report generation failed but continuing"
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4

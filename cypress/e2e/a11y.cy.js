@@ -14,7 +14,7 @@ describe('Acessibilidade - Suite de Testes com Cypress + axe-core', () => {
             if (violations.length > 0) {
                 cy.task('log', `${violations.length} violações encontradas`);
             }
-            expect(violations.length, 'Violations count').to.be.lessThan(3); // por exemplo, aceita até 2
+            expect(violations.length, 'Violations count').to.be.lessThan(3); 
         });
     });
 
@@ -25,7 +25,7 @@ describe('Acessibilidade - Suite de Testes com Cypress + axe-core', () => {
             if (violations.length > 0) {
                 cy.task('log', `${violations.length} violações encontradas`);
             }
-            expect(violations.length, 'Violations count').to.be.lessThan(3); // por exemplo, aceita até 2
+            expect(violations.length, 'Violations count').to.be.lessThan(3); 
         });
     });
 
