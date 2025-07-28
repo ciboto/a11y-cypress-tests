@@ -1,4 +1,6 @@
 import 'cypress-axe'
+import 'cypress-plugin-tab';
+
 
 Cypress.Commands.add('injectAxeAndCheck', () => {
   cy.injectAxe()
