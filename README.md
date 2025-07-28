@@ -6,3 +6,10 @@ Repositório com testes automatizados de acessibilidade usando Cypress e axe-cor
 - Testes baseados em fluxos reais de navegação
 - Geração de relatórios claros e acionáveis
 - Fácil integração em pipelines de CI/CD
+---
+
+## Pré-requisitos
+- Node.js (versão 14+)
+- npm ou yarn
+- VS Code ou outro editor
+- Navegador (Chrome ou Firefox)
