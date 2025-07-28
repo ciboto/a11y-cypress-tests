@@ -5,8 +5,9 @@ const fs = require('fs');
 
 module.exports = defineConfig({
   e2e: {
+    defaultCommandTimeout: 10000, 
+    pageLoadTimeout: 60000,       
     setupNodeEvents(on, config) {
-      // Log simples via cy.task
       on('task', {
         log(message) {
           console.log(message);
@@ -14,7 +15,6 @@ module.exports = defineConfig({
         }
       });
 
-      // Cria pasta JSON antes da execução
       on('before:run', async () => {
         const jsonDir = 'cypress/reports/json';
         if (!fs.existsSync(jsonDir)) {
@@ -22,15 +22,11 @@ module.exports = defineConfig({
           console.log('📁 Pasta JSON criada');
         }
       });
-
-      // Gera o relatório HTML após o merge
       on('after:run', async () => {
         const jsonDir = 'cypress/reports/json';
         const htmlDir = 'cypress/reports/html';
 
         if (!fs.existsSync(htmlDir)) fs.mkdirSync(htmlDir, { recursive: true });
-
-        // Apenas arquivos JSON válidos (contêm "stats")
         const validFiles = fs.readdirSync(jsonDir)
           .filter(file => file.endsWith('.json'))
           .map(file => `${jsonDir}/${file}`)
