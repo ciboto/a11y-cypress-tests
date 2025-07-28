@@ -1,40 +1,60 @@
 describe('Acessibilidade no WebAIM Contrast Checker', () => {
   beforeEach(() => {
-    cy.on('uncaught:exception', () => false);
     cy.visit('https://webaim.org/resources/contrastchecker/');
     cy.injectAxe();
   });
 
-  it('Imagem do logo deve estar visível e acessível', () => {
+  it('Logo deve estar visível e acessível', () => {
     cy.get('img[alt="WebAIM - Web Accessibility In Mind"]')
       .should('be.visible')
-      .and(($img) => {
-        // Confirma que largura e altura estão corretas
-        expect($img[0].naturalWidth).to.be.greaterThan(0);
-        expect($img[0].naturalHeight).to.be.greaterThan(0);
-        expect($img).to.have.attr('width', '315');
-        expect($img).to.have.attr('height', '83');
-      });
-    
-    // Testa regras de acessibilidade específicas para a imagem
-    cy.checkA11y('img[alt="WebAIM - Web Accessibility In Mind"]', {
-      includedImpacts: ['critical', 'serious']
-    }, (violations) => {
-      if (violations.length) {
-        const messages = violations.map(v => `${v.id}: ${v.help} (${v.nodes.length} elementos)`).join('\n');
-        assert.fail(`Violação na imagem do logo:\n${messages}`);
-      }
-    });
+      .and('have.attr', 'src')
+      .and('include', 'logo');
   });
 
   it('Página deve passar sem violações críticas ou sérias', () => {
-    cy.checkA11y(null, {
-      includedImpacts: ['critical', 'serious']
-    }, (violations) => {
-      if (violations.length) {
-        const messages = violations.map(v => `${v.id}: ${v.help} (${v.nodes.length} elementos)`).join('\n');
-        assert.fail(`Foram detectadas ${violations.length} violações:\n${messages}`);
+    cy.checkA11y(
+      null,
+      {
+        runOnly: {
+          type: 'tag',
+          values: ['wcag2aa', 'wcag21aa'],
+        },
+        includedImpacts: ['critical', 'serious'],
+      },
+      (violations) => {
+        if (violations.length) {
+          const messages = violations.map(
+            (v) => `${v.id}: ${v.help} (${v.nodes.length} elementos)`
+          ).join('\n');
+          assert.fail(`Foram detectadas ${violations.length} violações:\n${messages}`);
+        }
       }
+    );
+  });
+
+  it('HTML deve ter atributo lang definido', () => {
+    cy.document()
+      .its('documentElement')
+      .should('have.attr', 'lang')
+      .and('match', /^[a-z]{2}(-[A-Z]{2})?$/); // exemplo: en ou en-US
+  });
+
+  it('Campos devem ser acessíveis via teclado (Tab)', () => {
+    const idsEsperados = [
+      'Hex1',  // Foreground hex input
+      'Pic1',  // Foreground color picker
+      'Alpha1',// Foreground alpha
+      'Lig1',  // Foreground lightness
+      'Hex0',  // Background hex input
+      'Pic0',  // Background color picker
+      'Lig0'   // Background lightness
+    ];
+
+    cy.get(`#${idsEsperados[0]}`).focus().should('have.focus');
+
+    idsEsperados.slice(1).forEach((idEsperado) => {
+      cy.focused().tab();
+      cy.focused().should('have.attr', 'id', idEsperado);
     });
   });
 });

@@ -23,25 +23,12 @@ jobs:
         run: npm ci
 
       - name: Executar testes Cypress
-        run: npm run test || echo "Testes falharam, mas continuando..."
+        run: npm run test 
 
-      - name: Verificar se há JSONs válidos
-        id: check-reports
-        run: |
-          valid=$(grep -l '"stats"' cypress/reports/json/*.json 2>/dev/null | wc -l)
-          echo "🔎 Encontrados $valid relatórios válidos"
-          if [ "$valid" -gt 0 ]; then
-            echo "has_reports=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_reports=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Gerar relatório HTML acessível
-        if: steps.check-reports.outputs.has_reports == 'true'
+      - name: Gerar relatório HTML 
         run: npm run report
 
       - name: Upload do relatório HTML
-        if: steps.check-reports.outputs.has_reports == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: a11y-html-report
