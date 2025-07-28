@@ -1,4 +1,5 @@
 node_modules
 screenshots
-cypress/reports/*
-!cypress/reports/.gitkeep
+cypress/reports/json/
+cypress/reports/html/
+cypress/reports/screenshots/

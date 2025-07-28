@@ -13,11 +13,19 @@ module.exports = defineConfig({
         }
       });
 
+      on('before:run', async () => {
+        const jsonDir = 'cypress/reports/json';
+
+        if (!fs.existsSync(jsonDir)) {
+          fs.mkdirSync(jsonDir, { recursive: true });
+          console.log('📁 Pasta JSON criada');
+        }
+      });
+
       on('after:run', async () => {
         const jsonDir = 'cypress/reports/json';
         const htmlDir = 'cypress/reports/html';
 
-        if (!fs.existsSync(jsonDir)) fs.mkdirSync(jsonDir, { recursive: true });
         if (!fs.existsSync(htmlDir)) fs.mkdirSync(htmlDir, { recursive: true });
 
         const report = await merge({ files: [`${jsonDir}/*.json`] });
