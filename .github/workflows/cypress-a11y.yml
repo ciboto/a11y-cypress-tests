@@ -42,7 +42,7 @@ jobs:
 
       - name: Upload HTML Report
         if: steps.check-reports.outputs.has_reports == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: a11y-html-report
           path: cypress/reports/html/report-test-accessibility-index.html
