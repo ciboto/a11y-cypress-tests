@@ -1,0 +1,33 @@
+name: Cypress Accessibility Tests
+
+on:
+  pull_request: [ main ]
+  workflow_dipatch:
+
+jobs:
+  cypress-test-accessibility:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Rodar testes Cypress
+        run: npm run test
+
+      - name: Merge and generate mochawesome report
+        run: npm run report
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-html-report
+          path: cypress/reports/html
