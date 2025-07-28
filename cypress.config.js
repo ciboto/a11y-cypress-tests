@@ -6,6 +6,13 @@ const fs = require('fs');
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
+      on('task', {
+        log(message) {
+          console.log(message);
+          return null;
+        }
+      });
+
       on('after:run', async () => {
         const jsonDir = 'cypress/reports/json';
         const htmlDir = 'cypress/reports/html';
@@ -22,7 +29,6 @@ module.exports = defineConfig({
         console.log('✅ Relatório HTML gerado!');
       });
     },
-    //baseUrl: '' 
     supportFile: 'cypress/support/e2e.js',
     specPattern: 'cypress/e2e/**/*.cy.js',
     screenshotsFolder: 'cypress/reports/screenshots',
