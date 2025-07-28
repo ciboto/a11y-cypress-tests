@@ -1,8 +1,7 @@
 name: Cypress Accessibility Tests
 
 on:
-  pull_request: [ main ]
-  workflow_dipatch:
+  workflow_dispatch:
 
 jobs:
   cypress-test-accessibility:
