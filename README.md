@@ -2,7 +2,7 @@
 ![License](https://img.shields.io/badge/license-CC_BY--NC--ND_4.0-lightgrey.svg)
 ![Cypress](https://img.shields.io/badge/tested_with-Cypress-brightgreen.svg)
 
-Repositório com testes automatizados de acessibilidade usando Cypress e axe-core (via cypress-axe), para garantir conformidade com boas práticas como as diretrizes WCAG e promover uma experiência inclusiva para todas as pessoas.
+> Repositório com testes automatizados de acessibilidade usando Cypress e axe-core (via cypress-axe), para garantir conformidade com boas práticas como as diretrizes WCAG e promover uma experiência inclusiva para todas as pessoas.
 ---
 ### ✅ Recursos
 - Integração do cypress-axe para análise automatizada de acessibilidade
