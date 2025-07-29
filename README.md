@@ -13,3 +13,12 @@ Repositório com testes automatizados de acessibilidade usando Cypress e axe-cor
 - npm ou yarn
 - VS Code ou outro editor
 - Navegador (Chrome ou Firefox)
+
+
+
+
+
+---
+## 📄 Licença
+
+Este projeto está licenciado sob a [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) - Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
